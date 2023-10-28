@@ -1,5 +1,6 @@
-
 import React, { useState } from 'react';
+import './App.css';
+import 'tailwindcss/tailwind.css';
 
 function Board() {
   const [squares, setSquares] = useState(Array(9).fill(null));
@@ -24,32 +25,28 @@ function Board() {
 
   function renderSquare(i) {
     return (
-      <button className="square" onClick={() => selectSquare(i)}>
+      <button className="square bg-blue-500 text-white font-bold p-4 text-2xl" onClick={() => selectSquare(i)}>
         {squares[i]}
       </button>
     );
   }
 
   return (
-    <div>
-      <div className="status">{status}</div>
-      <div >
+    <div className='flex flex-col gap-4'>
+      <div className="status font-bold text-2xl mb-2 text-center">{status}</div>
+      <div className='grid grid-cols-3 gap-2'>
         {renderSquare(0)}
         {renderSquare(1)}
         {renderSquare(2)}
-      </div>
-      <div >
         {renderSquare(3)}
         {renderSquare(4)}
         {renderSquare(5)}
-      </div>
-      <div >
         {renderSquare(6)}
         {renderSquare(7)}
         {renderSquare(8)}
       </div>
-      <button onClick={restart}>
-        restart
+      <button onClick={restart} className="square bg-red-500 text-white font-bold p-1 text-xl">
+        Restart
       </button>
     </div>
   );
@@ -57,8 +54,8 @@ function Board() {
 
 function Game() {
   return (
-    <div >
-      <div >
+    <div className='min-h-screen w-screen flex items-center justify-center bg-gray-200'>
+      <div className="w-full md:w-2/5 p-4">
         <Board />
       </div>
     </div>
