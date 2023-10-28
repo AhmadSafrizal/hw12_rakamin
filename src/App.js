@@ -1,13 +1,25 @@
 
-import * as React from 'react';
+import React, { useState } from 'react';
 
 function Board() {
-  const squares = Array(9).fill(null);
-  function selectSquare(square) {
+  const [squares, setSquares] = useState(Array(9).fill(null));
+  const [xIsNext, setXIsNext] = useState(true);
 
+  const winner = calculateWinner(squares);
+  const status = calculateStatus(winner, squares, xIsNext ? 'X' : 'O');
+
+  function selectSquare(square) {
+    if (winner || squares[square]) return;
+
+    const squaresCopy = [...squares];
+    squaresCopy[square] = xIsNext ? 'X' : 'O';
+    setSquares(squaresCopy);
+    setXIsNext(!xIsNext);
   }
 
   function restart() {
+    setSquares(Array(9).fill(null));
+    setXIsNext(true);
   }
 
   function renderSquare(i) {
@@ -20,7 +32,7 @@ function Board() {
 
   return (
     <div>
-      <div >STATUS</div>
+      <div className="status">{status}</div>
       <div >
         {renderSquare(0)}
         {renderSquare(1)}
